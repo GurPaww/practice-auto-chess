@@ -1,0 +1,290 @@
+{
+  "cards": [
+    {
+      "id": "card_fire_sprite_I",
+      "name": "Fire Sprite I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 3 },
+      "score": 1,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_fire_sprite_II",
+      "name": "Fire Sprite II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 6 },
+      "score": 4,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_fire_sprite_III",
+      "name": "Fire Sprite III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 12 },
+      "score": 16,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_water_nymph_I",
+      "name": "Water Nymph I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 4 },
+      "score": 1,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_water_nymph_II",
+      "name": "Water Nymph II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 8 },
+      "score": 4,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_water_nymph_III",
+      "name": "Water Nymph III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 16 },
+      "score": 16,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_earth_golem_I",
+      "name": "Earth Golem I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 5 },
+      "score": 2,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_earth_golem_II",
+      "name": "Earth Golem II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 10 },
+      "score": 8,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_earth_golem_III",
+      "name": "Earth Golem III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 20 },
+      "score": 32,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_air_elemental_I",
+      "name": "Air Elemental I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 3 },
+      "score": 1,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_air_elemental_II",
+      "name": "Air Elemental II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 6 },
+      "score": 4,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_air_elemental_III",
+      "name": "Air Elemental III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 12 },
+      "score": 16,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_light_wisp_I",
+      "name": "Light Wisp I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 2 },
+      "score": 1,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_light_wisp_II",
+      "name": "Light Wisp II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 4 },
+      "score": 4,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_light_wisp_III",
+      "name": "Light Wisp III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 8 },
+      "score": 16,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_dark_specter_I",
+      "name": "Dark Specter I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 5 },
+      "score": 2,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_dark_specter_II",
+      "name": "Dark Specter II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 10 },
+      "score": 8,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_dark_specter_III",
+      "name": "Dark Specter III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 20 },
+      "score": 32,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_stone_guardian_I",
+      "name": "Stone Guardian I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 6 },
+      "score": 3,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_stone_guardian_II",
+      "name": "Stone Guardian II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 12 },
+      "score": 12,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_stone_guardian_III",
+      "name": "Stone Guardian III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 24 },
+      "score": 48,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_forest_dryad_I",
+      "name": "Forest Dryad I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 4 },
+      "score": 2,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_forest_dryad_II",
+      "name": "Forest Dryad II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 8 },
+      "score": 8,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_forest_dryad_III",
+      "name": "Forest Dryad III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 16 },
+      "score": 32,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_thunder_hawk_I",
+      "name": "Thunder Hawk I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 6 },
+      "score": 3,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_thunder_hawk_II",
+      "name": "Thunder Hawk II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 12 },
+      "score": 12,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_thunder_hawk_III",
+      "name": "Thunder Hawk III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 24 },
+      "score": 48,
+      "traits": { "race": "", "background": "" }
+    },
+
+    {
+      "id": "card_shadow_assassin_I",
+      "name": "Shadow Assassin I",
+      "level": 1,
+      "tier": 1,
+      "cost": { "gold": 5 },
+      "score": 2,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_shadow_assassin_II",
+      "name": "Shadow Assassin II",
+      "level": 2,
+      "tier": 1,
+      "cost": { "gold": 10 },
+      "score": 8,
+      "traits": { "race": "", "background": "" }
+    },
+    {
+      "id": "card_shadow_assassin_III",
+      "name": "Shadow Assassin III",
+      "level": 3,
+      "tier": 1,
+      "cost": { "gold": 20 },
+      "score": 32,
+      "traits": { "race": "", "background": "" }
+    }
+  ],
+  "settings": {
+    "storeSize": 5,
+    "benchSize": 8,
+    "storeLevel": 1,
+    "initialGoldFormula": "10 + 2 * roundNumber",
+    "copiesPerCard": 10
+  }
+}

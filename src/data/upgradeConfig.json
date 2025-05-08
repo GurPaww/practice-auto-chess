@@ -1,0 +1,35 @@
+{
+    "upgrades": [
+      {
+        "id": "benchSlot",
+        "label": "+1 Bench Slot",
+        "description": "Increase your bench capacity by one slot.",
+        "costGem": 5,
+        "effect": {
+          "type": "benchSlot",
+          "delta": 1
+        }
+      },
+      {
+        "id": "storeSlot",
+        "label": "+1 Store Slot",
+        "description": "Get one extra card in your shop each refresh.",
+        "costGem": 8,
+        "effect": {
+          "type": "storeSlot",
+          "delta": 1
+        }
+      },
+      {
+        "id": "discountI",
+        "label": "Level-I Discount",
+        "description": "Level-I cards cost 1 less gold to buy.",
+        "costGem": 10,
+        "effect": {
+          "type": "discountI",
+          "delta": 1
+        }
+      }
+    ]
+  }
+  

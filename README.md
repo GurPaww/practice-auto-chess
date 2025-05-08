@@ -1,70 +1,83 @@
-# GitHub Codespaces ♥️ React
+# Round-Based Merge Game Demo
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+## Overview
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+This is a demo version of a round-based, merge-style game built with React, Vite, and Recoil.  
+Players buy cards from a rotating shop, place them on a bench, merge three of a kind to level up, earn gems, and aim to reach a target score each round.
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+---
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## Installation
 
-## Available Scripts
+1. **Clone the repo**  
+   ```bash
+   git clone <your-repo-url>
+   cd round-based-merge-game
+   ```
 
-In the project directory, you can run:
+2. **Install dependencies**  
+   ```bash
+   npm install
+   ```
 
-### `npm start`
+3. **Start development server**  
+   ```bash
+   npm run dev
+   ```
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
+4. **Build for production**  
+   ```bash
+   npm run build
+   ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
+---
 
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```
+round-based-merge-game/
+├── src/
+│   ├── assets/                 # Card and UI images
+│   ├── components/             # Reusable React components (Card, Store, Bench, etc.)
+│   ├── data/
+│   │   └── cardConfig.json     # All card definitions and game settings
+│   ├── pages/                  # Route pages (MainMenu, GameScreen, UpgradeShop, Collection)
+│   ├── recoil/
+│   │   ├── atoms/              # Recoil atoms for global state
+│   │   ├── selectors/          # Recoil selectors (shop, purchase, merge, sell, etc.)
+│   ├── App.jsx                 # Main router setup
+│   └── main.jsx                # Entry point
+├── index.css                   # Global styles and layout grid
+├── README.md                   # This file
+└── vite.config.js              # Vite configuration
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## How to Play
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Start a new game** from the Main Menu.  
+2. Each round, you receive **gold** (10 + 2 × round number) to spend in the shop.  
+3. **Shop**: displays *N* random level‑I cards (default **5**).  
+   - **Right‑click** a card to purchase (cost = gold).  
+   - If insufficient gold, the gold counter flashes red and enlarges.  
+4. **Bench**: has *M* slots (default **8**). Place purchased cards here.  
+   - **Right‑click** a bench card to sell at full cost — returns cards to the pool and refunds gold.  
+   - Selling level‑II returns 3 level‑I copies; selling level‑III returns 9.  
+5. **Merging**: three of the same level‑I auto‑merge into level‑II (award 1 gem), and three level‑II auto‑merge into level‑III (award 1 gem).  
+6. **Next Round**: click to advance if your bench score ≥ target score.  
+   - Score = sum of individual card scores (varies by type & level).  
+   - If you meet the target, you proceed (gain gold); otherwise, game over.  
+7. **Upgrade Shop** (future): spend gems to increase shop size, bench slots, discounts, and more.  
+8. **Collection**: view all cards and filter by level, tier, and lore details.  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Configuration
 
-## Learn More
+All card data and game parameters (pool size, shop slots, bench slots, merge rules) live in:  
+`src/data/cardConfig.json`
 
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
+Modify values there and the UI will update dynamically.
 
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
+Enjoy the demo!  

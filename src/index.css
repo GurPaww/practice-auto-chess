@@ -1,13 +1,178 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* src/index.css */
+
+/* 1. Root and base styles */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+}
+
+/* 2. Top‐level grid for GameScreen */
+.game-screen {
+  display: grid;
+  /* center column min 500px, otherwise 4fr */
+  grid-template-columns: 1fr minmax(500px, 4fr) 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    ".      store-area info-panel"
+    ".      bench-area info-panel";
+  height: 100vh;
+}
+
+/* 3. Header */
+.top-bar {
+  grid-area: header;
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  position: relative;
+  z-index: 10;
+  background: inherit;
+}
+
+/* Optional score display */
+.score-display {
+  grid-area: header;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* 4. Store and bench wrappers */
+.store-area {
+  grid-area: store-area;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.bench-area {
+  grid-area: bench-area;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+/* 5. Info panel */
+.info-panel {
+  grid-area: info-panel;
+  padding: 1rem;
+}
+
+/* 6. Card container flexbox (fixes vertical stacking) */
+.store,
+/* Force bench into a single horizontal row */
+.bench {
+  display: flex !important;
+  flex-wrap: nowrap !important;     /* no wrapping */
+  justify-content: center;
+  gap: 0.5rem;
+  overflow-x: auto;                /* scroll if it overflows */
+}
+
+/* 7. Card styling */
+.store .card,
+.bench .card {
+  width: 100px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* 8. Highlight animation for insufficient gold */
+@keyframes highlight-gold {
+  0%, 100% {
+    color: inherit;
+    font-size: inherit;
+  }
+  50% {
+    color: red;
+    font-size: 1.5em; /* or 24px if you prefer */
+  }
+}
+
+.highlight {
+  /* no need for forwards—frame 100% restores original */
+  animation: highlight-gold 1.5s ease-in-out;
+}
+
+/* 9. Dark/light mode tweaks */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+}
+
+/* Flash bench-area border red 3× over 1.5s */
+@keyframes flash-bench-border {
+  0%, 100% {
+    border-color: inherit;
+  }
+  33%, 66% {
+    border-color: red;
+  }
+}
+
+.highlight-bench {
+  animation: flash-bench-border 1.5s ease-in-out;
+  border: 2px solid currentColor; /* ensure border exists */
+  border-radius: 6px;
+}
+
+/* Distinctive header buttons */
+.next-btn {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.refresh-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+}
+
+.shop-btn {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+/* Ensure header buttons stay on top */
+.top-bar button {
+  margin-right: 0.5rem;
 }
