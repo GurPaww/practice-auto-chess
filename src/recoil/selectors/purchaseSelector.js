@@ -5,6 +5,7 @@ import { playerResourcesState } from '../atoms/playerResourcesState';
 import { benchState }           from '../atoms/benchState';
 import { cardStoreState }       from '../atoms/cardStoreState';
 import { cardPoolState }        from '../atoms/cardPoolState';
+import { discountIState }       from '../atoms/shopState';
 
 export const purchaseSelector = selector({
   key: 'purchaseSelector',
@@ -12,14 +13,16 @@ export const purchaseSelector = selector({
   set: ({ get, set }, cardId) => {
     console.log('🛒 purchaseSelector:', cardId);
 
-    const res   = get(playerResourcesState);
-    const bench = get(benchState);
-    const pool  = get(cardPoolState);
-    const card  = cardConfig.cards.find(c => c.id === cardId);
+    const res       = get(playerResourcesState);
+    const bench     = get(benchState);
+    const pool      = get(cardPoolState);
+    const discountI = get(discountIState);
+    const card      = cardConfig.cards.find(c => c.id === cardId);
     if (!card) return;
 
     // 1) Insufficient gold? flash gold
-    if (res.gold < card.cost.gold) {
+    const effectiveCost = card.level === 1 ? Math.max(1, card.cost.gold - discountI) : card.cost.gold;
+    if (res.gold < effectiveCost) {
       const el = document.getElementById('gold-display');
       if (el) {
         el.classList.add('highlight');
@@ -100,7 +103,7 @@ export const purchaseSelector = selector({
     // 8) Award gems + deduct gold
     const newState = {
       ...res,
-      gold: res.gold - card.cost.gold,
+      gold: res.gold - effectiveCost,
       gem:  res.gem + gemReward
     };
     set(playerResourcesState, newState);
