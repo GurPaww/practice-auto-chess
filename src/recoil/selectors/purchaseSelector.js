@@ -11,7 +11,7 @@ export const purchaseSelector = selector({
   key: 'purchaseSelector',
   get: ({ get }) => get(playerResourcesState),
   set: ({ get, set }, cardId) => {
-    console.log('🛒 purchaseSelector:', cardId);
+    // console.log('🛒 purchaseSelector:', cardId);
 
     const res       = get(playerResourcesState);
     const bench     = get(benchState);
@@ -48,7 +48,7 @@ export const purchaseSelector = selector({
       if (pi !== -1) {
         newPool.splice(pi, 1);
         set(cardPoolState, newPool);
-        console.log('🛒 purchase: pool length now', newPool.length);
+        // console.log('🛒 purchase: pool length now', newPool.length);
       }
     }
 
@@ -89,7 +89,7 @@ export const purchaseSelector = selector({
               newBench[mergeSlot] = `${base}_${nextLvl}`;
               console.log(`🔀 merged 3×${base}_${lvl} → ${base}_${nextLvl}`);
             }
-            gemReward++;
+            gemReward+=(i+1);
             didMerge = true;
             break outer;
           }
