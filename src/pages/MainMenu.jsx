@@ -1,17 +1,12 @@
 // src/pages/MainMenu.jsx
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { gameState } from '../recoil/atoms/gameState';
-import { initialResourcesSelector } from '../recoil/selectors/resourceSelectors';
-import { refreshStoreSelector } from '../recoil/selectors/storeSelectors';
-import { useResetGame } from '../utils/resetGame';
+import { useGameStore } from '../zustand/useGameStore';
 
 export default function MainMenu() {
   const navigate = useNavigate();
-  const { round } = useRecoilValue(gameState);
-  const initRes = useRecoilValue(initialResourcesSelector);
-  const refreshStore = useSetRecoilState(refreshStoreSelector);
-  const resetGame = useResetGame(initRes);
+  const round = useGameStore(s => s.round);
+  const resetGame = useGameStore(s => s.resetGame);
+  const handleRefresh = useGameStore(s => s.handleRefresh);
 
   return (
     <div className="main-menu" style={{
@@ -35,7 +30,7 @@ export default function MainMenu() {
       <button
         onClick={() => {
           resetGame();
-          refreshStore(false)
+          handleRefresh(false);
           navigate('/game');
         }}
         className="button-main"

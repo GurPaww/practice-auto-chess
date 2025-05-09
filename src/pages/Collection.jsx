@@ -83,3 +83,5 @@ export default function Collection() {
     </div>
   );
 }
+
+// No Recoil usage in this file, so no changes needed for Zustand.

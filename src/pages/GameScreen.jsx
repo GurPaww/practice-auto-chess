@@ -1,60 +1,31 @@
 // src/pages/GameScreen.jsx
 import { useEffect, useCallback } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
 import Store from '../components/Store';
 import Bench from '../components/Bench';
-
-import { benchScoreSelector, targetScoreSelector } from '../recoil/selectors/scoreSelectors';
-import { nextRoundSelector }        from '../recoil/selectors/gameSelectors';
-import { playerResourcesState }     from '../recoil/atoms/playerResourcesState';
-import { initialResourcesSelector } from '../recoil/selectors/resourceSelectors';
-import { refreshStoreSelector }     from '../recoil/selectors/storeSelectors';
-import { gameOverState, gameState } from '../recoil/atoms/gameState';
-import { storeRefreshCostState }         from '../recoil/atoms/storeState';
-import { useResetGame } from '../utils/resetGame';
+import { useGameStore } from '../zustand/useGameStore';
 
 export default function GameScreen() {
-  const navigate       = useNavigate();
-  const { round }      = useRecoilValue(gameState);
-  const score          = useRecoilValue(benchScoreSelector);
-  const target         = useRecoilValue(targetScoreSelector);
-  const resources      = useRecoilValue(playerResourcesState);
-  const initRes        = useRecoilValue(initialResourcesSelector);
-  const refreshStore   = useSetRecoilState(refreshStoreSelector);
-  const goNext         = useSetRecoilState(nextRoundSelector);
-  const isGameOver     = useRecoilValue(gameOverState);
-  const setGameOver    = useSetRecoilState(gameOverState);
-  const refreshCost = useRecoilValue(storeRefreshCostState);
-  const setRefreshCost = useSetRecoilState(storeRefreshCostState);
-  const resetGame = useResetGame(initRes);
+  const navigate = useNavigate();
+  const round = useGameStore(s => s.round);
+  const score = useGameStore(s => s.benchScore());
+  const target = useGameStore(s => s.targetScore());
+  const isGameOver = useGameStore(s => s.gameOver);
+  const setGameOver = useGameStore(s => s.setGameOver);
+  const handleRefresh = useGameStore(s => s.handleRefresh);
+  const handleNext = useGameStore(s => s.handleNext);
+  const resetGame = useGameStore(s => s.resetGame);
+  const refreshCost = useGameStore(s => s.refreshCost);
+  const resources = useGameStore(s => s.resources)
 
-  
-  const handleRefresh = useCallback(() => {
-    refreshStore();
-  }, [refreshStore]);
-
-  
-  const handleNext = useCallback(() => {
-    goNext();
-    if (round % 3 == 0) {
-      setRefreshCost(cost => cost + 1);
-      console.log('cost increased to: ', refreshCost);
-    }
-    if (score < target) {
-      setGameOver(true);
-    }
-  }, [goNext, score, target, setGameOver]);
-
-  // keyboard shortcuts
   useEffect(() => {
     const onKey = e => {
       if (e.key === 'r' || e.key === 'R' || e.key === 'd' || e.key === 'D') handleRefresh();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [handleRefresh, handleNext]);
+  }, [handleRefresh]);
 
   if (isGameOver) {
     return (
@@ -69,7 +40,7 @@ export default function GameScreen() {
             className="button-secondary"
             onClick={() => {
               resetGame();
-              refreshStore(false);
+              handleRefresh(false);
               setGameOver(false);
             }}
           >

@@ -1,21 +1,9 @@
-import { useRecoilValue } from 'recoil';
-import { cardStoreState } from '../recoil/atoms/cardStoreState';
+import { useGameStore } from '../zustand/useGameStore';
 import Card from './Card';
 
 export default function Store() {
-  const store = useRecoilValue(cardStoreState);
-  // const cardPool = useRecoilValue(cardPoolState)
-
-  // initial fill on mount
-  // useEffect(() => {
-  //   console.log('Store mounted → refreshing...');
-  //   refresh(false);
-  // }, []);
-
-  // debug each render
-  // console.log('Store render → slots =', store);
-  // console.log(cardPool)
-
+  const store = useGameStore(state => state.cardStore);
+  if (!Array.isArray(store)) return null; // Prevent crash if store is not an array
   return (
     <div className="store">
       {store.map((id, idx) => (

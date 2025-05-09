@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a demo version of a round-based, merge-style game built with React, Vite, and Recoil.  
+This is a demo version of a round-based, merge-style game built with React, Vite, and Zustand.  
 Players buy cards from a rotating shop, place them on a bench, merge three of a kind to level up, earn gems, and aim to reach a target score each round.
 
 ---
@@ -42,15 +42,22 @@ round-based-merge-game/
 │   ├── data/
 │   │   └── cardConfig.json     # All card definitions and game settings
 │   ├── pages/                  # Route pages (MainMenu, GameScreen, UpgradeShop, Collection)
-│   ├── recoil/
-│   │   ├── atoms/              # Recoil atoms for global state
-│   │   ├── selectors/          # Recoil selectors (shop, purchase, merge, sell, etc.)
+│   ├── zustand/                # Zustand store for all global state
+│   ├── recoil/                 # (Obsolete) Recoil atoms/selectors (can be deleted)
 │   ├── App.jsx                 # Main router setup
 │   └── main.jsx                # Entry point
 ├── index.css                   # Global styles and layout grid
 ├── README.md                   # This file
-└── vite.config.js              # Vite configuration
+├── vite.config.js              # Vite configuration
 ```
+
+---
+
+## State Management
+
+**Zustand** is now used for all global state. The old `src/recoil/` folder is obsolete and can be deleted.
+- All state and actions are in `src/zustand/useGameStore.js`.
+- Use the `useGameStore` hook in your components to access and update state.
 
 ---
 
@@ -68,7 +75,7 @@ round-based-merge-game/
 6. **Next Round**: click to advance if your bench score ≥ target score.  
    - Score = sum of individual card scores (varies by type & level).  
    - If you meet the target, you proceed (gain gold); otherwise, game over.  
-7. **Upgrade Shop** (future): spend gems to increase shop size, bench slots, discounts, and more.  
+7. **Upgrade Shop**: spend gems to increase shop size, bench slots, discounts, and more.  
 8. **Collection**: view all cards and filter by level, tier, and lore details.  
 
 ---
@@ -80,4 +87,11 @@ All card data and game parameters (pool size, shop slots, bench slots, merge rul
 
 Modify values there and the UI will update dynamically.
 
-Enjoy the demo!  
+---
+
+## Migration Note
+
+- As of May 2025, **Zustand** is used for all state management. The `src/recoil/` folder and all Recoil logic are obsolete and can be deleted.
+- If you are upgrading from an older version, update your code to use `useGameStore` from `src/zustand/useGameStore.js` for all state and actions.
+
+Enjoy the demo!

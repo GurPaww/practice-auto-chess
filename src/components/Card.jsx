@@ -1,16 +1,20 @@
 // src/components/Card.jsx
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useGameStore } from '../zustand/useGameStore';
 import cardConfig from '../data/cardConfig.json';
-import { purchaseSelector } from '../recoil/selectors/purchaseSelector';
-import { sellSelector } from '../recoil/selectors/sellSelector';
-import { discountIState } from '../recoil/atoms/shopState';
 
 export default function Card({ cardId, location, trait, background, showHoverOn, slotIndex, highlighted, onBenchClick, draggable, onDragStart, onDragOver, onDrop, isDragging }) {
-  const doPurchase = useSetRecoilState(purchaseSelector);
-  const doSell = useSetRecoilState(sellSelector);
-  const discountI = useRecoilValue(discountIState);
+  const setBench = useGameStore(state => state.setBench);
+  const setCardStore = useGameStore(state => state.setCardStore);
+  const setCardPool = useGameStore(state => state.setCardPool);
+  const setResources = useGameStore(state => state.setResources);
+  const discountI = useGameStore(state => state.discountI);
+  const resources = useGameStore(state => state.resources);
+  const bench = useGameStore(state => state.bench);
+  const cardStore = useGameStore(state => state.cardStore);
+  const cardPool = useGameStore(state => state.cardPool);
+
   const [hovered, setHovered] = useState(false);
 
   if (!cardId) {
@@ -22,10 +26,47 @@ export default function Card({ cardId, location, trait, background, showHoverOn,
     return <div className="card empty" />;
   }
 
+  // Purchase logic (store)
+  const handlePurchase = () => {
+    const cardInStore = cardStore.find(c => c.id === cardId);
+    const cardInPool = cardPool.find(c => c.id === cardId);
+
+    // If the card is not already in the store or pool
+    if (!cardInStore && !cardInPool) {
+      // Check if the player has enough resources to purchase the card
+      if (resources.gold >= card.cost.gold) {
+        // Deduct the cost from the player's resources
+        setResources(prev => ({ ...prev, gold: prev.gold - card.cost.gold }));
+
+        // Add the card to the player's card store
+        setCardStore(prev => [...prev, { ...card, level: 1 }]);
+
+        // Optionally, add the card to a pool or bench
+        setCardPool(prev => [...prev, { ...card, level: 1 }]);
+      } else {
+        console.log('Not enough resources to purchase the card');
+      }
+    }
+  };
+
+  // Sell logic (bench)
+  const handleSell = () => {
+    const cardInBench = bench.find(c => c.id === cardId);
+
+    // If the card is in the bench
+    if (cardInBench) {
+      // Remove the card from the bench
+      setBench(prev => prev.filter(c => c.id !== cardId));
+
+      // Refund half of the card's cost to the player
+      setResources(prev => ({ ...prev, gold: prev.gold + Math.floor(card.cost.gold / 2) }));
+    }
+  };
+
   const handleContextMenu = e => {
     e.preventDefault();
-    if (location === 'store') doPurchase({ cardId, slotIndex });
-    else if (location === 'bench') doSell({ cardId, slotIndex });
+    if (location === 'store') handlePurchase();
+    else if (location === 'bench') handleSell();
   };
 
   const imgSrc = new URL(`../assets/${cardId}.png`, import.meta.url).href;

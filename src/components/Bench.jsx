@@ -1,11 +1,10 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { benchState } from '../recoil/atoms/benchState';
+import { useGameStore } from '../zustand/useGameStore';
 import Card from './Card';
 import { useState } from 'react';
 
 export default function Bench() {
-  const bench = useRecoilValue(benchState);
-  const setBench = useSetRecoilState(benchState);
+  const bench = useGameStore(state => state.bench);
+  const setBench = useGameStore(state => state.setBench);
   const [highlighted, setHighlighted] = useState([]); // array of indices
   const [draggedIdx, setDraggedIdx] = useState(null);
 

@@ -21,3 +21,5 @@ export default function UpgradeShop() {
     </div>
   );
 }
+
+// No Recoil usage in this file, so no changes needed for Zustand.

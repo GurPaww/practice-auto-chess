@@ -1,22 +1,18 @@
 // src/components/UpgradeItem.jsx
 import PropTypes from 'prop-types';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { playerResourcesState } from '../recoil/atoms/playerResourcesState';
-import { benchState }           from '../recoil/atoms/benchState';
-import {
-  storeSizeState,
-  storeRefreshCostState
-} from '../recoil/atoms/storeState';
-import { discountIState }       from '../recoil/atoms/shopState';
+import { useGameStore } from '../zustand/useGameStore';
 
 export default function UpgradeItem({ id, label, description, costGem, effect }) {
-  const gems        = useRecoilValue(playerResourcesState).gem;
-  const setResources = useSetRecoilState(playerResourcesState);
-
-  const [bench, setBench]             = useRecoilState(benchState);
-  const [storeSize, setStoreSize]     = useRecoilState(storeSizeState);
-  const [discountI, setDiscountI]     = useRecoilState(discountIState);
-  const [refreshCost, setRefreshCost] = useRecoilState(storeRefreshCostState);
+  const gems = useGameStore(s => s.resources.gem);
+  const setResources = useGameStore(s => s.setResources);
+  const bench = useGameStore(s => s.bench);
+  const setBench = useGameStore(s => s.setBench);
+  const storeSize = useGameStore(s => s.storeSize);
+  const setStoreSize = useGameStore(s => s.setStoreSize);
+  const discountI = useGameStore(s => s.discountI);
+  const setDiscountI = useGameStore(s => s.setDiscountI);
+  const refreshCost = useGameStore(s => s.refreshCost);
+  const setRefreshCost = useGameStore(s => s.setRefreshCost);
 
   const handlePurchase = e => {
     e.preventDefault();
@@ -25,32 +21,20 @@ export default function UpgradeItem({ id, label, description, costGem, effect })
       alert('Not enough gems!');
       return;
     }
-
-    // 1) deduct gems
     setResources(r => ({ ...r, gem: r.gem - costGem }));
-
-    // 2) apply effect
     switch (effect.type) {
       case 'benchSlot':
-        // add one null slot to bench
-        setBench(b => [...b, null]);
+        setBench([...bench, null]);
         break;
-
       case 'storeSlot':
-        // increase number of cards shown
-        setStoreSize(s => s + effect.delta);
+        setStoreSize(storeSize + effect.delta);
         break;
-
       case 'discountI':
-        // subtract delta from level-I cost later in purchase logic
-        setDiscountI(d => d + effect.delta);
+        setDiscountI(discountI + effect.delta);
         break;
-
       case 'refreshCost':
-        // lower the gold cost to refresh
-        setRefreshCost(c => Math.max(0, c - effect.delta));
+        setRefreshCost(Math.max(0, refreshCost - effect.delta));
         break;
-
       default:
         console.warn('Unknown upgrade effect:', effect.type);
     }
