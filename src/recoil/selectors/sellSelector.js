@@ -12,10 +12,22 @@ export const sellSelector = selector({
   get: ({ get }) => get(playerResourcesState),
 
   // WRITE: remove from bench, return to pool (array), refund gold
-  set: ({ get, set }, cardId) => {
+  set: ({ get, set }, payload) => {
+    // Support both old (cardId) and new ({cardId, slotIndex})
+    let cardId, slotIndex;
+    if (typeof payload === 'object' && payload !== null) {
+      cardId = payload.cardId;
+      slotIndex = payload.slotIndex;
+    } else {
+      cardId = payload;
+      slotIndex = undefined;
+    }
+
     // 1) remove card from bench
     const bench = [...get(benchState)];
-    const idx   = bench.indexOf(cardId);
+    let idx = -1;
+    if (typeof slotIndex === 'number') idx = slotIndex;
+    else idx = bench.indexOf(cardId);
     if (idx === -1) return;
     bench[idx] = null;
     set(benchState, bench);

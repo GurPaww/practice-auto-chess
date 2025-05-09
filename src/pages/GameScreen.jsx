@@ -12,10 +12,7 @@ import { playerResourcesState }     from '../recoil/atoms/playerResourcesState';
 import { initialResourcesSelector } from '../recoil/selectors/resourceSelectors';
 import { refreshStoreSelector }     from '../recoil/selectors/storeSelectors';
 import { gameOverState, gameState } from '../recoil/atoms/gameState';
-import { cardPoolState } from '../recoil/atoms/cardPoolState';
 import { storeRefreshCostState }         from '../recoil/atoms/storeState';
-import { benchState } from '../recoil/atoms/benchState';
-import { cardStoreState } from '../recoil/atoms/cardStoreState';
 import { useResetGame } from '../utils/resetGame';
 
 export default function GameScreen() {

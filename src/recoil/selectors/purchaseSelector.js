@@ -10,8 +10,16 @@ import { discountIState }       from '../atoms/shopState';
 export const purchaseSelector = selector({
   key: 'purchaseSelector',
   get: ({ get }) => get(playerResourcesState),
-  set: ({ get, set }, cardId) => {
-    // console.log('🛒 purchaseSelector:', cardId);
+  set: ({ get, set }, payload) => {
+    // Support both old (cardId) and new ({cardId, slotIndex})
+    let cardId, slotIndex;
+    if (typeof payload === 'object' && payload !== null) {
+      cardId = payload.cardId;
+      slotIndex = payload.slotIndex;
+    } else {
+      cardId = payload;
+      slotIndex = undefined;
+    }
 
     const res       = get(playerResourcesState);
     const bench     = get(benchState);
@@ -54,7 +62,9 @@ export const purchaseSelector = selector({
 
     // 4) Remove from store UI
     const store = [...get(cardStoreState)];
-    const si    = store.indexOf(cardId);
+    let si = -1;
+    if (typeof slotIndex === 'number') si = slotIndex;
+    else si = store.indexOf(cardId);
     if (si !== -1) store[si] = null;
     set(cardStoreState, store);
 

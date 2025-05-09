@@ -7,7 +7,7 @@ import { purchaseSelector } from '../recoil/selectors/purchaseSelector';
 import { sellSelector } from '../recoil/selectors/sellSelector';
 import { discountIState } from '../recoil/atoms/shopState';
 
-export default function Card({ cardId, location, trait, background, showHoverOn }) {
+export default function Card({ cardId, location, trait, background, showHoverOn, slotIndex, highlighted, onBenchClick, draggable, onDragStart, onDragOver, onDrop, isDragging }) {
   const doPurchase = useSetRecoilState(purchaseSelector);
   const doSell = useSetRecoilState(sellSelector);
   const discountI = useRecoilValue(discountIState);
@@ -24,8 +24,8 @@ export default function Card({ cardId, location, trait, background, showHoverOn 
 
   const handleContextMenu = e => {
     e.preventDefault();
-    if (location === 'store') doPurchase(cardId);
-    else if (location === 'bench') doSell(cardId);
+    if (location === 'store') doPurchase({ cardId, slotIndex });
+    else if (location === 'bench') doSell({ cardId, slotIndex });
   };
 
   const imgSrc = new URL(`../assets/${cardId}.png`, import.meta.url).href;
@@ -35,16 +35,28 @@ export default function Card({ cardId, location, trait, background, showHoverOn 
 
   return (
     <div
-      className={`card${hovered ? ' hovered' : ''} card-collection-boundary`}
+      className={`card${hovered ? ' hovered' : ''}${highlighted ? ' highlighted' : ''} card-collection-boundary`}
       onContextMenu={handleContextMenu}
       onMouseEnter={() => showHoverOn === 'hover' && setHovered(true)}
       onMouseLeave={() => showHoverOn === 'hover' && setHovered(false)}
-      onClick={() => showHoverOn === 'click' && setHovered(h => !h)}
-      // To adjust card boundary size, change width/height below:
-      style={{ position: 'relative', boxSizing: 'border-box', border: location === 'collection' ? '2px dashed #bfa' : '2px solid #aaa', borderRadius: 12, 
-        background: location === 'collection' ? '#f8fff8' : '#fff', 
-        boxShadow: hovered && location === 'collection' ? '0 0 12px #bfa' : '0 1px 4px #ccc', 
-        margin: 8, width: 100, height: 140, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'box-shadow 0.2s, border 0.2s' }}
+      onClick={() => {
+        if (location === 'bench' && onBenchClick) onBenchClick(slotIndex);
+        else if (showHoverOn === 'click') setHovered(h => !h);
+      }}
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      style={{
+        position: 'relative',
+        boxSizing: 'border-box',
+        border: highlighted ? '3px solid orange' : (location === 'collection' ? '2px dashed #bfa' : '2px solid #aaa'),
+        borderRadius: 12,
+        background: location === 'collection' ? '#f8fff8' : '#fff',
+        boxShadow: hovered && location === 'collection' ? '0 0 12px #bfa' : '0 1px 4px #ccc',
+        margin: 8, width: 100, height: 140, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'box-shadow 0.2s, border 0.2s',
+        opacity: isDragging ? 0.5 : 1
+      }}
     >
       <img src={imgSrc} alt={card.name} width={64} height={64} style={{ marginBottom: 4 }} />
       <div className="card-info" style={{ textAlign: 'center', fontSize: 14 }}>
@@ -83,6 +95,14 @@ Card.propTypes = {
   trait: PropTypes.string,
   background: PropTypes.string,
   showHoverOn: PropTypes.oneOf(['hover', 'click']), // 'hover' (default) or 'click'
+  slotIndex: PropTypes.number,
+  highlighted: PropTypes.bool,
+  onBenchClick: PropTypes.func,
+  draggable: PropTypes.bool,
+  onDragStart: PropTypes.func,
+  onDragOver: PropTypes.func,
+  onDrop: PropTypes.func,
+  isDragging: PropTypes.bool,
 };
 
 Card.defaultProps = {
