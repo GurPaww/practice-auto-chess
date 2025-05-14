@@ -64,8 +64,8 @@ export default function Card({ cardId, location, trait, background, showHoverOn,
       borderColor={highlighted ? 'orange' : (location === 'collection' ? '#bfa' : '#aaa')}
       shadowRadius={hovered && location === 'collection' ? 12 : 4}
       margin={8}
-      width={120}
-      height={160}
+      width={200}
+      height={250}
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
