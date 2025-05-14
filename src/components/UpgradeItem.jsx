@@ -8,6 +8,7 @@ import {
   storeRefreshCostState
 } from '../recoil/atoms/storeState';
 import { discountIState }       from '../recoil/atoms/shopState';
+import { Stack, Text } from 'tamagui';
 
 export default function UpgradeItem({ id, label, description, costGem, effect }) {
   const gems        = useRecoilValue(playerResourcesState).gem;
@@ -57,23 +58,26 @@ export default function UpgradeItem({ id, label, description, costGem, effect })
   };
 
   return (
-    <div
+    <Stack
       className="upgrade-item"
       onContextMenu={handlePurchase}
       title="Right-click to purchase"
-      style={{
-        border: '1px solid #888',
-        borderRadius: 6,
-        padding: '0.5rem',
-        margin: '0.5rem',
-        cursor: gems >= costGem ? 'context-menu' : 'not-allowed',
-        opacity: gems >= costGem ? 1 : 0.5
-      }}
+      borderWidth={2}
+      borderColor="$accent8"
+      borderRadius={18}
+      padding={12}
+      margin={8}
+      backgroundColor="$background"
+      opacity={gems >= costGem ? 1 : 0.5}
+      cursor={gems >= costGem ? 'context-menu' : 'not-allowed'}
+      shadowColor="$shadowColor"
+      shadowRadius={8}
+      fontFamily="'Silkscreen', monospace"
     >
-      <h3>{label}</h3>
-      <p>{description}</p>
-      <small>Cost: {costGem} 💎</small>
-    </div>
+      <Text fontWeight="bold" fontSize={20} color="$accent10">{label}</Text>
+      <Text fontFamily="'Silkscreen', monospace" fontSize={16} color="$color12">{description}</Text>
+      <Text fontFamily="'Silkscreen', monospace" fontSize={14} color="$color10">Cost: {costGem} 💎</Text>
+    </Stack>
   );
 }
 

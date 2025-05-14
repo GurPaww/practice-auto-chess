@@ -5,6 +5,7 @@ import { gameState } from '../recoil/atoms/gameState';
 import { initialResourcesSelector } from '../recoil/selectors/resourceSelectors';
 import { refreshStoreSelector } from '../recoil/selectors/storeSelectors';
 import { useResetGame } from '../utils/resetGame';
+import { Stack, Text, Button } from 'tamagui';
 
 export default function MainMenu() {
   const navigate = useNavigate();
@@ -14,42 +15,76 @@ export default function MainMenu() {
   const resetGame = useResetGame(initRes);
 
   return (
-    <div className="main-menu" style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f8fff8 0%, #e0f7fa 100%)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontFamily: 'Comic Sans MS, Comic Sans, cursive',
-      color: '#2d5c3b'
-    }}>
-      <h1 style={{ fontSize: 48, marginBottom: 24, letterSpacing: 2, textShadow: '2px 2px 0 #bfa' }}>🔮 A Weird Card Game</h1>
-
+    <Stack
+      className="main-menu"
+      minHeight="100vh"
+      backgroundColor="$background"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      padding={32}
+      $sm={{ padding: 16 }}
+    >
+      <Text
+        fontFamily="'Silkscreen', monospace"
+        fontSize={56}
+        fontWeight="700"
+        color="$color12"
+        letterSpacing={2}
+        style={{ textShadow: '2px 2px 0 #bfa8', marginBottom: 24 }}
+      >
+        🔮 A Weird Card Game
+      </Text>
       {round > 1 && (
-        <button onClick={() => navigate('/game')} className="button-main">
+        <Button
+          backgroundColor="$color1"
+          color="$color12"
+          borderRadius={18}
+          paddingVertical={12}
+          paddingHorizontal={32}
+          fontFamily="'Silkscreen', monospace"
+          onPress={() => navigate('/game')}
+        >
           Resume Game
-        </button>
+        </Button>
       )}
-
-      <button
-        onClick={() => {
+      <Button
+        backgroundColor="$color1"
+        color="$color12"
+        borderRadius={18}
+        paddingVertical={12}
+        paddingHorizontal={32}
+        fontFamily="'Silkscreen', monospace"
+        onPress={() => {
           resetGame();
-          refreshStore(false)
+          refreshStore(false);
           navigate('/game');
         }}
-        className="button-main"
       >
         Start New Game
-      </button>
-
-      <button onClick={() => navigate('/shop')} className="button-shop">
+      </Button>
+      <Button
+        backgroundColor="$accent10"
+        color="$color12"
+        borderRadius={18}
+        paddingVertical={12}
+        paddingHorizontal={32}
+        fontFamily="'Silkscreen', monospace"
+        onPress={() => navigate('/shop')}
+      >
         Upgrade Shop
-      </button>
-
-      <button onClick={() => navigate('/cards')} className="button-collection">
+      </Button>
+      <Button
+        backgroundColor="$accent8"
+        color="$color12"
+        borderRadius={18}
+        paddingVertical={12}
+        paddingHorizontal={32}
+        fontFamily="'Silkscreen', monospace"
+        onPress={() => navigate('/cards')}
+      >
         Card Collection
-      </button>
-    </div>
+      </Button>
+    </Stack>
   );
 }

@@ -2,6 +2,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { benchState } from '../recoil/atoms/benchState';
 import Card from './Card';
 import { useState } from 'react';
+import { Stack } from 'tamagui';
 
 export default function Bench() {
   const bench = useRecoilValue(benchState);
@@ -42,20 +43,24 @@ export default function Bench() {
   };
 
   return (
-    <div className="bench" style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: 16,
-      background: '#e0f7fa',
-      border: '2px solid #bfa',
-      borderRadius: 18,
-      padding: '18px 0',
-      margin: '0 auto',
-      minWidth: 420,
-      minHeight: 120,
-      boxShadow: '0 2px 8px #bfa6'
-    }}>
+    <Stack
+      className="bench"
+      flexDirection="row"
+      justifyContent="center"
+      alignItems="center"
+      gap={16}
+      backgroundColor="$background"
+      borderWidth={2}
+      borderColor="$color3"
+      borderRadius={18}
+      paddingVertical={18}
+      marginVertical={0}
+      minWidth={420}
+      minHeight={120}
+      shadowColor="$shadowColor"
+      shadowRadius={8}
+      style={{ margin: '0 auto' }}
+    >
       {bench.map((id, i) => (
         <Card
           key={i}
@@ -72,6 +77,6 @@ export default function Bench() {
           isDragging={draggedIdx === i}
         />
       ))}
-    </div>
+    </Stack>
   );
 }

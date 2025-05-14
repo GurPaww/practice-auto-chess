@@ -8,4 +8,12 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
+  define: {
+    'process.env': {},
+  },
+  resolve: {
+    alias: {
+      process: 'process/browser',
+    },
+  },
 })

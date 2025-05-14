@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cardConfig from '../data/cardConfig.json';
 import Card from '../components/Card';
+import { Stack, Button } from 'tamagui';
 
 export default function Collection() {
   const navigate = useNavigate();
@@ -22,14 +23,24 @@ export default function Collection() {
   const rightCards = cards.slice(page * cardsPerSpread + cardsPerPage, (page + 1) * cardsPerSpread);
 
   return (
-    <div className="collection-page" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', background: '#f4f2e9' }}>
-      <header className="collection-header">
-        <button className="button-main" onClick={() => navigate(-1)}>← Back</button>
+    <Stack className="collection-page" flexDirection="column" alignItems="center" minHeight="100vh" backgroundColor="$background">
+      <Stack className="collection-header" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%" maxWidth={700} marginVertical={24}>
+        <Button
+          backgroundColor="$color1"
+          color="$color12"
+          borderRadius={18}
+          fontFamily="'Silkscreen', monospace"
+          fontSize={22}
+          paddingVertical={12}
+          paddingHorizontal={32}
+          onPress={() => navigate(-1)}
+        >
+          ← Back
+        </Button>
         <h2 style={{ flex: 1, textAlign: 'center', margin: 0 }}>Card Collection</h2>
         <div style={{ width: 60 }} />
-      </header>
-
-      <div className="filters">
+      </Stack>
+      <Stack className="filters" flexDirection="row" alignItems="center" marginVertical={16}>
         <label>Filter by Level:</label>
         <select
           value={filterLevel}
@@ -42,14 +53,24 @@ export default function Collection() {
             </option>
           ))}
         </select>
-      </div>
-
-      <div className="book-view" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '32px 0', minHeight: 320 }}>
-        <button className="button-main" disabled={page === 0} onClick={() => setPage(page - 1)} style={{ fontSize: 22, marginRight: 16 }}>
+      </Stack>
+      <Stack className="book-view" flexDirection="row" alignItems="center" justifyContent="center" marginVertical={32} minHeight={320}>
+        <Button
+          backgroundColor="$color1"
+          color="$color12"
+          borderRadius={18}
+          fontFamily="'Silkscreen', monospace"
+          fontSize={22}
+          paddingVertical={12}
+          paddingHorizontal={32}
+          disabled={page === 0}
+          onPress={() => setPage(page - 1)}
+          style={{ marginRight: 16 }}
+        >
           ◀ Prev
-        </button>
-        <div className="book-boundary">
-          <div className="book-page left">
+        </Button>
+        <Stack className="book-boundary" flexDirection="row" backgroundColor="$background" borderWidth={4} borderColor="$color3" borderRadius={24} boxShadow="0 4px 32px $shadowColor" padding={36} minWidth={480} minHeight={260} gap={48}>
+          <Stack className="book-page left" flexDirection="column" alignItems="center" minWidth={180}>
             {leftCards.map(card => (
               <Card
                 key={card.id}
@@ -59,9 +80,9 @@ export default function Collection() {
                 background={card.traits?.background || 'Forest'}
               />
             ))}
-          </div>
+          </Stack>
           <div className="book-spine" />
-          <div className="book-page right">
+          <Stack className="book-page right" flexDirection="column" alignItems="center" minWidth={180}>
             {rightCards.map(card => (
               <Card
                 key={card.id}
@@ -71,15 +92,26 @@ export default function Collection() {
                 background={card.traits?.background || 'Forest'}
               />
             ))}
-          </div>
-        </div>
-        <button className="button-main" disabled={page === pageCount - 1 || pageCount === 0} onClick={() => setPage(page + 1)} style={{ fontSize: 22, marginLeft: 16 }}>
+          </Stack>
+        </Stack>
+        <Button
+          backgroundColor="$color1"
+          color="$color12"
+          borderRadius={18}
+          fontFamily="'Silkscreen', monospace"
+          fontSize={22}
+          paddingVertical={12}
+          paddingHorizontal={32}
+          disabled={page === pageCount - 1 || pageCount === 0}
+          onPress={() => setPage(page + 1)}
+          style={{ marginLeft: 16 }}
+        >
           Next ▶
-        </button>
-      </div>
+        </Button>
+      </Stack>
       <div style={{textAlign: 'center', marginTop: 8}}>
         Page {page + 1} / {pageCount || 1}
       </div>
-    </div>
+    </Stack>
   );
 }

@@ -1,26 +1,16 @@
 import { useRecoilValue } from 'recoil';
 import { cardStoreState } from '../recoil/atoms/cardStoreState';
 import Card from './Card';
+import { Stack } from 'tamagui';
 
 export default function Store() {
   const store = useRecoilValue(cardStoreState);
-  // const cardPool = useRecoilValue(cardPoolState)
-
-  // initial fill on mount
-  // useEffect(() => {
-  //   console.log('Store mounted → refreshing...');
-  //   refresh(false);
-  // }, []);
-
-  // debug each render
-  // console.log('Store render → slots =', store);
-  // console.log(cardPool)
 
   return (
-    <div className="store">
+    <Stack className="store" flexDirection="row" gap={16} backgroundColor="$background" padding={16} borderRadius={18}>
       {store.map((id, idx) => (
         <Card key={idx} cardId={id} location="store" showHoverOn="click" slotIndex={idx} />
       ))}
-    </div>
+    </Stack>
   );
 }
