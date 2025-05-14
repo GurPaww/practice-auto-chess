@@ -27,7 +27,7 @@ export const nextRoundSelector = selector({
 
       // accumulate gold
       const res     = get(playerResourcesState);
-      const gain    = 10 + 2 * newRnd;
+      const gain    = Math.ceil(10 * (0.8)^prev.round) + 2 * newRnd;
       set(playerResourcesState, {
         ...res,
         gold: res.gold + gain
